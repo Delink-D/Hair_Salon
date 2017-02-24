@@ -1,0 +1,12 @@
+<h3  class="list-h3">List of All <small>Stylists</small></h3>
+<hr>
+<ul class="list-group">
+	#foreach($stylist in $stylists)
+		<a href="/admin/view-stylist/$stylist.getId()" class="list-a">
+			<li class="list-group-item">
+				<span class="glyphicon glyphicon-user my-user" aria-hidden="true"></span>
+				<p class="user-list">Name: </strong>$stylist.getName1() $stylist.getName2()</p>
+			</li>
+		</a>
+	#end
+</ul>

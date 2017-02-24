@@ -1,0 +1,92 @@
+body {
+	background: #f5f5f5;
+}
+.group:before,.group:after {
+	content: "";
+	display: table;
+	clear: both;
+}
+#main > div {
+	float: left;
+}
+.admin-left {
+	width: 20%;
+}
+.admin-main {
+	width: 50%;
+	background: #fff;
+	margin-left: 2.5%;
+	padding-bottom: 20px;
+	border: 1px solid #dcdcdc;
+}
+.admin-right {
+	width: 25%;
+	background: #fff;
+	margin-left: 2.5%;
+	border: 1px solid #dcdcdc;
+}
+/*useless*/
+.admin-left,
+.admin-main,
+.admin-right {
+	min-height: 200px;
+}
+/*/useless*/
+.left-top {
+	min-height: 50px;
+	background: #fff;
+	border: 1px solid #dcdcdc;
+}
+.left-bottom {
+	margin-top: 20%;
+	min-height: 50%;
+	background: #fff;
+	border: 1px solid #dcdcdc;
+}
+.admin-nav-item {
+	border-bottom: 1px solid #dcdcdc;
+	border-radius: 0!important;
+	border-top: none!important;
+	border-right: none!important;
+	border-left: none!important;
+}
+.nav-link {
+	color: #99B0B7;
+	font-weight: bold;
+	font-size: 17px;
+}
+.my-form {
+	width: 90%;
+	padding: 10px;
+	margin: 0 auto;
+}
+.list-group-item {
+	
+}
+.list-a {
+	text-decoration: none;
+	color: #333;
+}
+.list-a:hover {
+	text-decoration: none;
+	color: #333;
+}
+.list-h3 {
+	padding-left: 15px;
+}
+.my-user {
+	font-size: 50px;
+}
+.my-user-user {
+	font-size: 100px;
+	height: 130px;
+}
+.user-list {
+	width: 85%;
+	float: right;
+	font-size: 19px;
+	padding-top: 10px;
+}
+.list-a > li:hover {
+	background: #f5f5f5;
+}

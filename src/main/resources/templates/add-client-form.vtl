@@ -1,0 +1,22 @@
+<form class="form my-form" action="/admin/new-client" method="post">
+	<h3>Add <small>Client</small></h3><hr>
+	<div class="form-group">
+		<label>First Name</label>
+		<input type="text" name="fname" placeholder="First Name" class="form-control">
+	</div>
+	<div class="form-group">
+		<label>Last Name</label>
+		<input type="text" name="lname" placeholder="Last Name" class="form-control">
+	</div>
+	<div class="form-group">
+		<label>Assign Stylist</label>
+		<select class="form-control" name="stylist">
+			#foreach($stylist in $stylist)
+				<option value="$stylist.getId()">$stylist.getName1()</option>
+			#end
+		</select>
+	</div>
+	<div class="form-group">
+		<input type="submit" class="btn btn-primary" value="Add Stylist">
+	</div>
+</form>

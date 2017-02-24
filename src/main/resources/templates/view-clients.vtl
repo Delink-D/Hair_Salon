@@ -1,0 +1,12 @@
+<h3 class="list-h3">List of All <small>Clients</small></h3>
+<hr>
+<ul class="list-group">
+	#foreach($client in $clients)
+		<a href="/admin/view-clients/$client.getId()" class="list-a">
+			<li class="list-group-item">
+				<span class="glyphicon glyphicon-user my-user" aria-hidden="true"></span>
+				<p class="user-list"><strong>Name: </strong> $client.getName1() $client.getName2()</span>
+			</li>
+		</a>
+	#end
+</ul>	
