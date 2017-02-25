@@ -47,12 +47,12 @@ public class StylistTest {
 	}
 
 	@Test
-		public void save_assignsIdToStylists_ID(){
-			Stylist testStylist = new Stylist("Name", "Name","Code"); 
-			testStylist.save();
-			Stylist savedStylist = Stylist.getStylists().get(0);
-			assertEquals(testStylist.getId(),savedStylist.getId());
-		}
+	public void save_assignsIdToStylists_ID(){
+		Stylist testStylist = new Stylist("Name", "Name","Code"); 
+		testStylist.save();
+		Stylist savedStylist = Stylist.getStylists().get(0);
+		assertEquals(testStylist.getId(),savedStylist.getId());
+	}
 
 	@Test 
 	public void find_returnsStylistWithSameId_secondStylist() {
@@ -61,5 +61,22 @@ public class StylistTest {
 		Stylist testStylist2 = new Stylist("Name", "Name","Code");
 		testStylist2.save();
 		assertEquals(Stylist.find(testStylist2.getId()), testStylist2);
+	}
+
+	@Test 
+	public void update_updatesStylistDEtails_true() {
+		Stylist testStylist = new Stylist("Name", "Name","code");
+		testStylist.save();
+		testStylist.update("Name", "myUpdate");
+		assertEquals("myUpdate", Stylist.find(testStylist.getId()).getName2());
+	}
+
+	@Test 
+	public void delete_deletesStylist_true() {
+		Stylist testStylist = new Stylist("Name", "Name","code");
+		testStylist.save();
+		int stylistid = testStylist.getId();
+		testStylist.delete();
+		assertEquals(null, Stylist.find(stylistid));
 	}
 }

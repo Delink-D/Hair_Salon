@@ -9,6 +9,51 @@
 		<ul class="list-group">
 			<li class="list-group-item"><strong>Full Names : </strong> $client.getName1() $client.getName2()</li>
 			<li class="list-group-item"><strong>Stylist Name : </strong> $stylist.getName1() $stylist.getName2()</li>
+			<li class="list-group-item">
+				<form action="/admin/view-clients/delete/client/$client.getId()" method="post">
+					<a href="#" data-target="#mymodal" data-toggle="modal" class="btn btn-info">Update $client.getName1()!</a>
+					<input type="submit" value="Delete $client.getName1()!" class="btn btn-danger">
+				</form>
+			</li>
 		</ul>
 	</div>
 </div>
+
+<div class="modal fade" id="mymodal">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+					<span class="sr-only">Close</span>
+				</button>
+				<h4 class="modal-title">Update client <strong>$client.getName1()</strong></h4>
+			</div>
+			<form action="/admin/view-clients/$stylist.getId()/client/$client.getId()" method="post">
+				<div class="modal-body">
+					<fieldset class="form-group">
+						<label for="name1">First Name</label>
+						<input type="text" class="form-control" id="name1" name="name1" value="$client.getName1()">
+					</fieldset>
+					<fieldset class="form-group">
+						<label for="name2">Last Name</label>
+						<input type="text" class="form-control" id="name2" name="name2" value="$client.getName2()">
+					</fieldset>
+					<fieldset class="form-group">
+						<label for="stylist">Stylist</label>
+						<select class="form-control" id="stylist" name="stylist">
+							<option value="$stylist.getId()">$stylist.getName1()</option>
+							#foreach($changeStylist in $existingStylists)
+								<option value="$changeStylist.getId()">$changeStylist.getName1()</option>
+							#end
+						</select>
+					</fieldset>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+					<input type="submit" class="btn btn-primary" value="Save changes">
+				</div>
+			</form>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

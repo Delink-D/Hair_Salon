@@ -16,7 +16,7 @@ body {
 	width: 50%;
 	background: #fff;
 	margin-left: 2.5%;
-	padding-bottom: 20px;
+	/*padding-bottom: 20px;*/
 	border: 1px solid #dcdcdc;
 }
 .admin-right {
@@ -49,6 +49,15 @@ body {
 	border-top: none!important;
 	border-right: none!important;
 	border-left: none!important;
+}
+.my-item-list {
+	border-radius: 0!important;
+	border-top: none!important;
+	border-right: none!important;
+	border-left: none!important;
+}
+.my-list-group {
+	margin-top: -20px;
 }
 .nav-link {
 	color: #99B0B7;
@@ -89,4 +98,35 @@ body {
 }
 .list-a > li:hover {
 	background: #f5f5f5;
+}
+.my-img {
+	width: 50%;
+	margin: 10px 25%;
+}
+.admin-name {
+	font-weight: 700;
+	text-align: center;
+	font-size: 20px;
+	margin-top: 10px;
+	color: #366;
+}
+.admin-intro {
+	color: #999;
+	font-weight: 600;
+	text-align: center;
+	margin-top: -10px;
+}
+.clients-holder {
+	width: 95%;
+	margin: 0 auto;
+}
+
+/*login page*/
+.box {
+	width: 30%;
+	margin: 5% auto;
+	background: #fff;
+	padding: 15px;
+	border-radius: 6px;
+	border: 1px solid #dcdcdc;
 }

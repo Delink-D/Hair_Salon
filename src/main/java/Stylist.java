@@ -33,6 +33,28 @@ public class Stylist {
 		}
 	}
 
+	// update method
+	public void update(String fName,String lName) {
+		try(Connection con = DB.sql2o.open()) {
+			String sql = "UPDATE stylist SET fname = :fname, lname = :lname WHERE id = :id";
+			con.createQuery(sql)
+			.addParameter("fname", fName)
+			.addParameter("lname", lName)
+			.addParameter("id", id)
+			.executeUpdate();
+		}
+	}
+
+	public void delete() {
+		try(Connection con = DB.sql2o.open()){
+			String sql1 = "DELETE FROM clients WHERE stylist = :id";
+			String sql2 = "DELETE FROM stylist WHERE id = :id";
+			con.createQuery(sql1).addParameter("id", id).executeUpdate();
+			con.createQuery(sql2).addParameter("id", id).executeUpdate();
+			
+		}
+	}
+
 	public int getId() {
 		return id;
 	}

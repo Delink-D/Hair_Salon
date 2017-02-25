@@ -10,15 +10,37 @@ import static spark.Spark.*;
 public class App {
 	public static void main(String[] args) {
 		staticFileLocation("/public");
-    	String layout = "templates/layout.vtl";
+        String layout       = "templates/layout.vtl";
+    	String layout_index = "templates/layout_index.vtl";
 
+        // index route which is also login page
     	get("/", (request, response) -> {
     		Map<String, Object> model = new HashMap<String, Object>();
 
     		model.put("view", "templates/index.vtl");
 
-    		return new ModelAndView(model,layout);
+    		return new ModelAndView(model,layout_index);
     	}, new VelocityTemplateEngine());
+
+        // login route
+        post("/", (request, response) -> {
+            Map<String, Object> model = new HashMap<String, Object>();
+
+            String email = request.queryParams("email");
+            String pword = request.queryParams("password");
+
+            // Login login = new Login(email, pword);
+
+            // if (Login.login() == true) {
+            //     model.put("view", "templates/admin.vtl");   
+            // }else {
+            //     model.put("view", "templates/index.vtl");
+            // }
+
+            model.put("view", "templates/admin.vtl");
+
+            return new ModelAndView(model,layout);
+        }, new VelocityTemplateEngine());
 
     	get("/admin", (request, response) -> {
     		Map<String, Object> model = new HashMap<String, Object>();
@@ -66,15 +88,56 @@ public class App {
     		return new ModelAndView(model,layout);
     	}, new VelocityTemplateEngine());
 
+        // a route to delete a client
+        post("/admin/view-stylist/delete/stylist/:id", (request, response) -> {
+            Map<String, Object> model = new HashMap<String, Object>();
+            int id = Integer.parseInt(request.params(":id"));
+
+            Stylist thisDelete = Stylist.find(id);
+            // Stylist thisClients =  Stylist.deleteClients();
+
+            thisDelete.delete();
+
+            String url = String.format("/admin/view-stylists");
+            response.redirect(url);
+
+            return new ModelAndView(model,layout);
+        }, new VelocityTemplateEngine());
+
     	// a route to view all stylist of the company
     	get("/admin/view-stylist/:id", (request, response) -> {
     		Map<String, Object> model = new HashMap<String, Object>();
 
     		int id = Integer.parseInt(request.params(":id"));
-    		model.put("stylist", Stylist.find(id));
+            model.put("stylist", Stylist.find(id));
+    		model.put("clients", Clients.getClientsForStylist(id));
     		model.put("view", "templates/stylist.vtl");
     		return new ModelAndView(model,layout);
     	}, new VelocityTemplateEngine());
+
+        // a route to update the client details
+        post("/admin/view-stylists/update/stylist/:id", (request, response) -> {
+            Map<String, Object> model = new HashMap<String, Object>();
+            int id = Integer.parseInt(request.params(":id"));
+            // int stylist = Integer.parseInt(request.params(":stylist"));
+            Stylist thisUpdate = Stylist.find(id);
+            
+            String fname = request.queryParams("name1");
+            String lname = request.queryParams("name2");
+
+            thisUpdate.update(fname,lname);
+
+            String url = String.format("/admin/view-stylist/%d", id);
+            response.redirect(url);
+
+            return new ModelAndView(model,layout);
+        }, new VelocityTemplateEngine());
+
+
+
+        /*
+            * start of you clients routes
+        */
 
     	// a route or getting a form for add a new client
     	get("/admin/new-client", (request, response) -> {
@@ -114,14 +177,52 @@ public class App {
     		return new ModelAndView(model,layout);
     	}, new VelocityTemplateEngine());
 
-    	// a route directing you to a single user page
-    	get("/admin/view-clients/:id", (request, response) -> {
-    		Map<String, Object> model = new HashMap<String, Object>();
-    		int id = Integer.parseInt(request.params(":id"));
+        // a route to delete a client
+        post("/admin/view-clients/delete/client/:id", (request, response) -> {
+            Map<String, Object> model = new HashMap<String, Object>();
+            int id = Integer.parseInt(request.params(":id"));
 
-    		// model.put("stylist", Stylist.find(Clients.getStylist()));
-    		model.put("client", Clients.find(id));
-    		model.put("view", "templates/client.vtl");
+            Clients thisUpdate = Clients.find(id);
+            
+            thisUpdate.delete();
+
+            String url = String.format("/admin/view-stylist/%d", thisUpdate.getStylist());
+            response.redirect(url);
+
+            return new ModelAndView(model,layout);
+        }, new VelocityTemplateEngine());
+
+    	// a route directing you to a single user page
+        get("/admin/view-clients/:id", (request, response) -> {
+            Map<String, Object> model = new HashMap<String, Object>();
+            int id = Integer.parseInt(request.params(":id"));
+
+            Clients client   = Clients.find(id);
+            Stylist stylist = Stylist.find(client.getStylist());
+
+            model.put("client", client);
+            model.put("stylist", stylist);
+            model.put("existingStylists", Stylist.getStylists());
+            model.put("view", "templates/client.vtl");
+
+            return new ModelAndView(model,layout);
+        }, new VelocityTemplateEngine());
+
+        // a route to update the client details
+    	post("/admin/view-clients/:stylist/client/:id", (request, response) -> {
+    		Map<String, Object> model = new HashMap<String, Object>();
+            int id = Integer.parseInt(request.params(":id"));
+
+            Clients thisUpdate = Clients.find(id);
+
+            String fname = request.queryParams("name1");
+            String lname = request.queryParams("name2");
+            int stylist  = Integer.parseInt(request.queryParams("stylist"));
+
+            thisUpdate.update(fname,lname,stylist);
+
+            String url = String.format("/admin/view-clients/%d", id);
+            response.redirect(url);
 
     		return new ModelAndView(model,layout);
     	}, new VelocityTemplateEngine());

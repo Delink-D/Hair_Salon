@@ -1,4 +1,4 @@
-<h3 class="list-h3">Client Name <small>$stylist.getName1()</small></h3>
+<h3 class="list-h3">Stylist Name <small>$stylist.getName1()</small></h3>
 <hr>
 
 <div>
@@ -8,6 +8,74 @@
 	<div class="col-md-8"> <!-- user details -->
 		<ul class="list-group">
 			<li class="list-group-item"><strong>Full Names : </strong> $stylist.getName1() $stylist.getName2()</li>
+			<li class="list-group-item">
+				<form action="/admin/view-stylist/delete/stylist/$stylist.getId()" method="post">
+					<a href="#" data-target="#mymodal" data-toggle="modal" class="btn btn-info">Update $stylist.getName1()!</a>
+					<input type="submit" value="Delete $stylist.getName1()!" class="btn btn-danger">
+				</form>
+			</li>
 		</ul>
 	</div>
 </div>
+<div class="clearfix"></div>
+<hr>
+<div class="clients-holder">
+	<table class="table">
+		<thead>
+			<tr>
+				<th>N/A</th>
+				<th>First Name</th>
+				<th>Last Name</th>
+			</tr>
+		</thead>	
+		<tbody>
+			#if($clients)
+				#foreach($client in $clients)
+					<tr>
+						<td>$velocityCount</td>
+						<td>$client.getName1()</td>
+						<td>$client.getName2()</td>
+					</tr>
+				#end
+			#else
+				<tr>
+					<th colspan="3" class="text-danger text-center">There are no clients for this Stylist!</th>
+				</tr>
+			#end
+		</tbody>
+	</table>
+</div>
+
+<div class="modal fade" id="mymodal">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+					<span class="sr-only">Close</span>
+				</button>
+				<h4 class="modal-title">Update Stylist <strong>$stylist.getName1()</strong></h4>
+			</div>
+			<form action="/admin/view-stylists/update/stylist/$stylist.getId()" method="post">
+				<div class="modal-body">
+					<fieldset class="form-group">
+						<label for="stylist">Stylist Code</label>
+						<input type="text" readonly value="$stylist.getCode()" class="form-control">
+					</fieldset>
+					<fieldset class="form-group">
+						<label for="name1">First Name</label>
+						<input type="text" class="form-control" id="name1" name="name1" value="$stylist.getName1()">
+					</fieldset>
+					<fieldset class="form-group">
+						<label for="name2">Last Name</label>
+						<input type="text" class="form-control" id="name2" name="name2" value="$stylist.getName2()">
+					</fieldset>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+					<input type="submit" class="btn btn-primary" value="Save changes">
+				</div>
+			</form>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

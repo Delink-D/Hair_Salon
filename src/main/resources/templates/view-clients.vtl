@@ -1,9 +1,9 @@
 <h3 class="list-h3">List of All <small>Clients</small></h3>
 <hr>
-<ul class="list-group">
+<ul class="list-group my-list-group">
 	#foreach($client in $clients)
 		<a href="/admin/view-clients/$client.getId()" class="list-a">
-			<li class="list-group-item">
+			<li class="list-group-item my-item-list">
 				<span class="glyphicon glyphicon-user my-user" aria-hidden="true"></span>
 				<p class="user-list"><strong>Name: </strong> $client.getName1() $client.getName2()</span>
 			</li>

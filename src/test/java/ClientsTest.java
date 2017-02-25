@@ -47,12 +47,12 @@ public class ClientsTest {
 	}
 
 	@Test
-		public void save_assignsIdToClients_ID(){
-			Clients testClients = new Clients("Name", "Name",1); 
-			testClients.save();
-			Clients savedClients = Clients.getClients().get(0);
-			assertEquals(testClients.getId(),savedClients.getId());
-		}
+	public void save_assignsIdToClients_ID(){
+		Clients testClients = new Clients("Name", "Name",1); 
+		testClients.save();
+		Clients savedClients = Clients.getClients().get(0);
+		assertEquals(testClients.getId(),savedClients.getId());
+	}
 
 	@Test 
 	public void find_returnsClientsWithSameId_secondClients() {
@@ -61,5 +61,22 @@ public class ClientsTest {
 		Clients testClients2 = new Clients("Name", "Name",1);
 		testClients2.save();
 		assertEquals(Clients.find(testClients2.getId()), testClients2);
+	}
+
+	@Test 
+	public void update_updatesTaskDescription_true() {
+		Clients testClients = new Clients("Name", "Name", 1);
+		testClients.save();
+		testClients.update("Name", "myUpdate",1);
+		assertEquals("myUpdate", Clients.find(testClients.getId()).getName2());
+	}
+
+	@Test 
+	public void delete_deletesClient_true() {
+		Clients testClients1 = new Clients("Name", "Name",1);
+		testClients1.save();
+		int clientid = testClients1.getId();
+		testClients1.delete();
+		assertEquals(null, Clients.find(clientid));
 	}
 }
